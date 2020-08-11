@@ -12,6 +12,7 @@
     <artifactId>java_spring_boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>java_spring_boot</name>
+    <!--打包打成war包-->
     <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
 
@@ -20,17 +21,26 @@
     </properties>
 
     <dependencies>
-        <dependency>
+        <!--打war包部署到外置Tomcat里面所需的依赖-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--&lt;!&ndash; provided 表明该包只在编译和测试的时候使用，去除默认的tomcat &ndash;&gt;-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.tomcat.embed</groupId>-->
+            <!--<artifactId>tomcat-embed-jasper</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+        <!-- spring dev tools -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!-- provided 表明该包只在编译和测试的时候使用，去除默认的tomcat -->
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>-->
+
+        <!--SpringBoot配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -41,6 +51,28 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--SpringBoot配置结束-->
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!-- pageHelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.12</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,8 +82,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-
-        <finalName>hello1</finalName>
+        <!--打包后的包名和项目名-->
+        <!--<finalName>hello1</finalName>-->
     </build>
 
 </project>
