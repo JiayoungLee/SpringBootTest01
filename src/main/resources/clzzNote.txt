@@ -297,6 +297,9 @@ Spring Data Jpa
 		jpa 自动生成表、父接口运用
 		思考题：
 			jpa自动生成表，如何保证 bean 属性的顺序 和 生成的表的列顺序 一致
+			    顺序不一致的原因：hibernate里面在corejar包下的  org.hibernate.cfg下的PropertyContainor类装
+			数据用的TreeMap（无序的）
+			    解决：把该类里面的全部TreeMap替换成LinkedHashMap即刻
 		
 		
 		

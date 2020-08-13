@@ -1,14 +1,13 @@
 package com.hqyj.javaSpringBoot.modules.test.controller;
 
 import com.hqyj.javaSpringBoot.modules.common.vo.Result;
+import com.hqyj.javaSpringBoot.modules.common.vo.SearchVo;
 import com.hqyj.javaSpringBoot.modules.test.entity.Card;
 import com.hqyj.javaSpringBoot.modules.test.entity.Student;
 import com.hqyj.javaSpringBoot.modules.test.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * author  Jayoung
@@ -26,8 +25,29 @@ public class StudentController {
      * http://localhost:667/api/student   -----post
      * {"studentName":"JayoungLee","studentCard":{"cardId":"1"}}
      */
-    @PostMapping(value = "/student",consumes = "application/json")
-    public Result<Student> insertCard(@RequestBody Student student){
+    @PostMapping(value = "/student", consumes = "application/json")
+    public Result<Student> insertCard(@RequestBody Student student) {
         return studentService.insertStudent(student);
     }
+
+
+    /**
+     * http://localhost:667/api/student/studentId  -----get
+     */
+    @GetMapping("/student/{studentId}")
+    public Student getStudentByStudentId(@PathVariable int studentId) {
+
+        return studentService.getStudentByStudentId(studentId);
+    }
+
+
+    /**
+     * http://localhost:667/api/students   -----post
+     * {"currentPage":"1","pageSize":"2","keyWord":"Ja","orderBy":"studentName","sort":"desc"}
+     */
+    @PostMapping(value = "/students",consumes = "application/json")
+    public Page<Student> getStudentsBySearchVo(@RequestBody SearchVo searchVo) {
+        return studentService.getStudentsBySearchVo(searchVo);
+    }
+
 }

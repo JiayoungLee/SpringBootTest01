@@ -1,7 +1,9 @@
 package com.hqyj.javaSpringBoot.modules.test.service;
 
 import com.hqyj.javaSpringBoot.modules.common.vo.Result;
+import com.hqyj.javaSpringBoot.modules.common.vo.SearchVo;
 import com.hqyj.javaSpringBoot.modules.test.entity.Student;
+import org.springframework.data.domain.Page;
 
 /**
  * author  Jayoung
@@ -10,4 +12,8 @@ import com.hqyj.javaSpringBoot.modules.test.entity.Student;
  */
 public interface StudentService {
     Result<Student> insertStudent(Student student);
+
+    Student getStudentByStudentId(int studentId);
+
+    Page<Student> getStudentsBySearchVo(SearchVo searchVo);
 }
