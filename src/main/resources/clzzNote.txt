@@ -34,24 +34,56 @@ Spring Boot 基础介绍
 		cloud：分布式应用的大集成者，三维立体的，每一个应用基于 boot；
 
 常用的注解
-	@SpringBootApplication：启动boot 项目
-	@Configuration：配置类注解 ---- <beans></beans>；
-	@Bean：注册 bean 注解 ---- <bean></bean>；
-	@PropertySource ---- 绑定配置文件；
-	@ConfigurationProperties ---- 设置配置类属性
-	@Value：读取配置文件 || 读取配置文件属性；
-	@Component：注册 spring 组件；
-	@Autowired ---- 按照 bean 的类型组装 Bean
-	@Resource ---- 按照 Bean 的名字组装 Bean；
-	@Aspect（@Bedore、@Aroud、@After、@PointCut、@Oder） ----- Aop 注解
-	@Transational ---- 事务注解
-	@Controller（RestControler） ----- 控制层注解
-		@RequestMapping、@GetMapping、@PostMapping、@PutMapping、@DeleteMapping
-	@Service ----- 服务层注解
-	@Repository ---- 持久层注解
-	
+	spring
+		@SpringBootApplication：启动boot 项目
+		@Configuration：配置类注解 ---- <beans></beans>；
+		@Bean：注册 bean 注解 ---- <bean></bean>；
+		@PropertySource ---- 绑定配置文件；
+		@ConfigurationProperties ---- 设置配置类属性
+		@Value：读取配置文件 || 读取配置文件属性；
+		@Component：注册 spring 组件；
+		@Autowired ---- 按照 bean 的类型组装 Bean
+		@Resource ---- 按照 Bean 的名字组装 Bean；
+		@Aspect（@Bedore、@Aroud、@After、@PointCut、@Oder） ----- Aop 注解
+		@Transational ---- 事务注解
+		@Controller（RestControler） ----- 控制层注解
+			@RequestMapping、@GetMapping、@PostMapping、@PutMapping、@DeleteMapping || consumes（进入控制器的数据类型）、produces（控制器输出的数据类型）
+				application/json
+				application/x-www-form-urlencoded
+			@PathVariable ---- 接受路径参数
+			@RequestParam ---- 接受查询参数
+			@RequestBody ---- 接受json参数
+			@ModelAttribute ---- 接受form表单数据
+			
+		@Service ----- 服务层注解
+		@Repository ---- 持久层注解
+	---------------------------
+	mybatis
+		@Mapper ---- @MapperScan + @Repository
+		@Select、@Insert、@Update、@Delete
+		@Results
+	---------------------------
+	jpa
+		@Entity ---- 指明实体 bean
+		@Table ---- 映射到数据库中的表
+		@Id ---- 对应表中 primary key
+		@GeneratedValue ---- strategy = GenerationType.IDENTITY -----主键生成策略
+		@Column ---- 映射到表中的列
+		@Transient ---- 实体 bean 的属性不参与到数据库的映射
+		@OneToOne
+			OneToOne：一对一关系中，一方使用 JoinColumn 注解（有外键），另一方使用 mappedBy 属性（可选）
+			cascade：联级操作
+			fetch：加载数据策略
+			JsonIgnore：不序列化该字段，避免无限递归
+		@OneToMany
+			OneToMany：多方使用 joinClumn，创建外键，一方使用 mappedBy 属性
+		@ManyToOne
+			@JoinColumn
+				insertable、updatable：标识该属性是否参与插入和更新插入
+		@ManyToMany
+			@JoinTable ---- 中间表
 搭建 Spring Boot 框架
-	folder、source folder、resource folder、fackage 四者的区别
+	folder、source folder、resource folder、package 四者的区别
 	规范性：结构清晰、缩进清晰、命名清晰、逻辑清晰
 	
 配置文件
@@ -218,8 +250,54 @@ RESTful规则
 		getCitiesBySearchVo
 		getCountryByCountryId
 		getCountryByCountryName
+		
+	作业回顾
+		只提交 pom src下面的内容
 				
-			
+============= day_03 ===========
+Mybatis
+	应用
+		脚本多条件查询
+		新增接口
+		修改接口
+		删除接口
+		
+Git 命令运用
+
+Spring Data Jpa
+	简介
+		sun 公式定制的 ORM 的一套规范，自己并没有实现；
+		hibernate、openJpa…… 其中 hibernate 性能最好，我们在项目中引入 jpa，实际引入 hibernate 相关的 jar
+		Jpa：思想是少写 sql、或不写sql，基于这套理念，它封装了一套语法，使用 “注解” 的方式实现 “实体bean” 的关系（一对一、一对多、多对多），也正是因为这样，我们定义的 bean 会变变得复杂，对于比较复杂的业务逻辑来说，很容造成实体 bean 之间的循环调用；
+	步骤一：pom导入相关
+		<!-- jpa -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+	步骤二：配置
+		application.properties
+			# for jpa
+			# validate\create\create-drop\update
+			spring.jpa.hibernate.ddl-auto=update
+			spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+			spring.jackson.serialization.fail-on-empty-beans=false
+			spring.jpa.show-sql=true
+			spring.jpa.properties.hibernate.format_sql=true
+			logging.level.org.hibernate.SQL=DEBUG
+			logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
+	步骤三：应用
+		repository ---- service ---- controller
+		创建实体 bean
+		自动生成表
+		jpa 父接口
+		
+	作业
+		mybatis 脚本查询、增删改
+		jpa 自动生成表、父接口运用
+		思考题：
+			jpa自动生成表，如何保证 bean 属性的顺序 和 生成的表的列顺序 一致
+		
 		
 		
 		
