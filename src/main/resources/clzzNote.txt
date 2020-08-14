@@ -51,7 +51,7 @@ Spring Boot 基础介绍
 				application/json
 				application/x-www-form-urlencoded
 			@PathVariable ---- 接受路径参数
-			@RequestParam ---- 接受查询参数
+			@RequestParam ---- 接受查询参数（如访问路径问号后面的参数）
 			@RequestBody ---- 接受json参数
 			@ModelAttribute ---- 接受form表单数据
 			
@@ -302,7 +302,61 @@ Spring Data Jpa
 			    解决：把该类里面的全部TreeMap替换成LinkedHashMap即刻
 		
 		
-		
+============= day_04 ===========
+Jpa
+	父接口应用
+		分页带条件查询
+			findall（）
+			findall（sort）
+			findall（pageable）
+			findall（example， pageable） ---- 带条件分页查询，需要给定一个模版，按照模版封装的内容进行查询
+
+	属性查询
+		接口方法命名：findBy + Top || First（option） + 属性 + 关键字 + 属性（option）
+			查询关键字列表
+			And ---- findByLastnameAndFirstname ---- … where x.lastname = ?1 and x.firstname = ?2；
+			Or ---- findByLastnameOrFirstname ---- … where x.lastname = ?1 or x.firstname = ?2；
+			Is,Equals ---- findByFirstname,findByFirstnameIs,findByFirstnameEquals ---- … where x.firstname = ?1；
+			Between ---- findByStartDateBetween ---- … where x.startDate between ?1 and ?2；
+			LessThan ---- findByAgeLessThan ---- … where x.age < ?1；
+			LessThanEqual ---- findByAgeLessThanEqual ---- … where x.age <= ?1；
+			GreaterThan ---- findByAgeGreaterThan ---- … where x.age > ?1；
+			GreaterThanEqual ---- findByAgeGreaterThanEqual ---- … where x.age >= ?1；
+			After ---- findByStartDateAfter ---- … where x.startDate > ?1；
+			Before ---- findByStartDateBefore ---- … where x.startDate < ?1；
+			IsNull ---- findByAgeIsNull ---- … where x.age is null；
+			IsNotNull,NotNull ---- findByAge(Is)NotNull ---- … where x.age not null；
+			Like ---- findByFirstnameLike ---- … where x.firstname like ?1；
+			NotLike ---- findByFirstnameNotLike ---- … where x.firstname not like ?1；
+			StartingWith ---- findByFirstnameStartingWith ---- … where x.firstname like ?1 (parameter bound with appended %)；
+			EndingWith ---- findByFirstnameEndingWith ---- … where x.firstname like ?1 (parameter bound with prepended %)；
+			Containing ---- findByFirstnameContaining ---- … where x.firstname like ?1 (parameter bound wrapped in %)；
+			OrderBy ---- findByAgeOrderByLastnameDesc ---- … where x.age = ?1 order by x.lastname desc；
+			Not ---- findByLastnameNot ---- … where x.lastname <> ?1；
+			In ---- findByAgeIn(Collection<Age> ages) ---- … where x.age in ?1；
+			NotIn ---- findByAgeNotIn(Collection<Age> ages) ---- … where x.age not in ?1；
+			True ---- findByActiveTrue() ---- … where x.active = true；
+			False ---- findByActiveFalse() ---- … where x.active = false；
+			IgnoreCase ---- findByFirstnameIgnoreCase ---- … where UPPER(x.firstame) = UPPER(?1)；
+		自定义查询
+			sql ---- select * from h_student where student_id = ?
+			hql ---- select studentId, studentName from Student where studentId = ?
+				使用 “类名” 代替 “表名”，使用 “类名.属性名” 代替 “列名”；
+				没有 * 查询；
+				传参方式
+					1、?index 的方式，index 顺序和方法参数顺序一致，从 1 开始：
+						@Query(value = "select s from Student s where s.studentName = ?1 and s.studentCard.cardId = ?2")
+			JPql ---- 实际上 hql 类似；
+
+
+	作业
+		jpa 实现
+			父接口查询
+			属性查询
+			自定义查询
+
+
+
 		
 	
 		

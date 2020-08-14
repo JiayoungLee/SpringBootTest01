@@ -5,6 +5,8 @@ import com.hqyj.javaSpringBoot.modules.common.vo.SearchVo;
 import com.hqyj.javaSpringBoot.modules.test.entity.Student;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * author  Jayoung
  * createDate  2020/8/12 0012 20:01
@@ -16,4 +18,6 @@ public interface StudentService {
     Student getStudentByStudentId(int studentId);
 
     Page<Student> getStudentsBySearchVo(SearchVo searchVo);
+
+    List<Student> getStudentsByStudentName(String studentName,int cardId);
 }

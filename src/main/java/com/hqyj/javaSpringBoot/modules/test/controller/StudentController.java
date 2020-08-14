@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * author  Jayoung
  * createDate  2020/8/12 0012 20:04
@@ -49,5 +51,16 @@ public class StudentController {
     public Page<Student> getStudentsBySearchVo(@RequestBody SearchVo searchVo) {
         return studentService.getStudentsBySearchVo(searchVo);
     }
+
+
+    /**
+     * http://localhost:667/api/students?studentName=JayoungLee   -----get
+     */
+    @GetMapping("/students")
+    public List<Student> getStudentByStudentName(@RequestParam String studentName,
+                                                 @RequestParam(required = false,defaultValue = "0") Integer cardId) {
+        return studentService.getStudentsByStudentName(studentName,cardId);
+    }
+
 
 }
