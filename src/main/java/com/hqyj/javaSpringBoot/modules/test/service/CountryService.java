@@ -11,4 +11,6 @@ public interface CountryService {
     Country getCountryByCountryId(int countryId);
 
     Country getCountryByCountryName(String countryName);
+
+    Country mograteCountryByRedis(int countryId);
 }
